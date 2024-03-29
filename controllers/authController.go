@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"log"
 	"os"
 	"strconv"
 	"time"
@@ -138,6 +139,7 @@ func Logout(c *fiber.Ctx) error {
 	}
 
 	c.Cookie(&cookie)
+	log.Println("Logout!")
 
 	return c.JSON(fiber.Map{
 		"message": "success",
