@@ -6,14 +6,13 @@ const Nav = () => {
   let menu;
 
   const logout = async() => {
-    console.log("Logout");
     
     await fetch("http://localhost:3000/api/logout", {
       method: "GET",
       headers: {"Content-Type": "application/json"},
       credentials: "include"
     })
-    
+    setName("")
   }
 
   if (name == "") {
