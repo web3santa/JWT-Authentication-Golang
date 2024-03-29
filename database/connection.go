@@ -5,9 +5,12 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
+	"github.com/web3santa/JWT-Authentication-Golang/model"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
+
+var DB *gorm.DB
 
 func Connect() {
 
@@ -25,10 +28,14 @@ func Connect() {
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
 		dbUser, dbPassword, dbHost, dbPort, dbName)
 
-	_, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	connection, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
 	if err != nil {
 		panic("could not connect to the database")
 	}
+
+	DB = connection
+
+	connection.AutoMigrate(&model.User{})
 
 }
